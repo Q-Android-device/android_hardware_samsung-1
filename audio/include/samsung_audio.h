@@ -54,6 +54,14 @@
 #endif
 #endif
 
+/* RIL initialization */
+/*
+ * If you encounter issues like non-received WB-AMR callbacks,
+ * you may consider enabling this switch to delay the audioserver
+ * boot-process until a RIL connection was established.
+ */
+// #define RIL_OPEN_SYNCHRONOUS
+
 /* Unusupported
 #define SOUND_CAPTURE_LOOPBACK_AEC_DEVICE 1
 #define SOUND_CAPTURE_HOTWORD_DEVICE 0
@@ -71,6 +79,12 @@
  * fast mode. See /proc/asound/irq_affinity
  */
 #define SUPPORTS_IRQ_AFFINITY 0
+
+/*
+ * ril_set_call_clock_sync() can cause problems with changing
+ * call-volume and muting the mic in a call.
+ */
+// #define DISABLE_CALL_CLOCK_SYNC
 
 /*
  * The Wolfson/Cirruslogic chips need to shutdown the DAPM route completely

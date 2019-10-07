@@ -67,6 +67,8 @@ ifneq ($(TARGET_USES_OLD_MNC_FORMAT),)
     LOCAL_CFLAGS += -DOLD_MNC_FORMAT
 endif
 
+LOCAL_CFLAGS += -Wno-error
+
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
 LOCAL_C_INCLUDES += external/nanopb-c
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../include

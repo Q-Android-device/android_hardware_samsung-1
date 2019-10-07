@@ -16,7 +16,7 @@
 
 #define LOG_TAG "audio_hw_voice"
 #define LOG_NDEBUG 0
-/*#define VERY_VERY_VERBOSE_LOGGING*/
+#define VERY_VERY_VERBOSE_LOGGING
 #ifdef VERY_VERY_VERBOSE_LOGGING
 #define ALOGVV ALOGV
 #else
@@ -285,6 +285,10 @@ int start_voice_session(struct voice_session *session)
         ALOGV("%s: disabling two mic control", __func__);
         ril_set_two_mic_control(&session->ril, AUDIENCE, TWO_MIC_SOLUTION_OFF);
     }
+
+#ifndef DISABLE_CALL_CLOCK_SYNC
+    ril_set_call_clock_sync(&session->ril, SOUND_CLOCK_START);
+#endif
 
     return 0;
 }

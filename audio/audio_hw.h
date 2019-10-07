@@ -22,6 +22,10 @@
 #include <cutils/list.h>
 #include <hardware/audio.h>
 
+#ifdef DEVICE_HAS_AMPLIFIER_SUPPORT
+#include <hardware/audio_amplifier.h>
+#endif
+
 #include <tinyalsa/asoundlib.h>
 #include <tinycompress/tinycompress.h>
 /* TODO: remove resampler if possible when AudioFlinger supports downsampling from 48 to 8 */
@@ -151,6 +155,7 @@ enum {
 #define CAPTURE_PERIOD_COUNT_LOW_LATENCY 2
 #define CAPTURE_DEFAULT_CHANNEL_COUNT 2
 #define CAPTURE_DEFAULT_SAMPLING_RATE 48000
+#define CAPTURE_DEFAULT_SAMPLING_RATE_LOW_LATENCY 16000
 #define CAPTURE_START_THRESHOLD 1
 
 #define COMPRESS_CARD       0
@@ -407,6 +412,11 @@ struct audio_device {
 #endif
 
     pthread_mutex_t         lock_inputs; /* see note below on mutex acquisition order */
+
+#ifdef DEVICE_HAS_AMPLIFIER_SUPPORT
+    amplifier_device_t      *amp;
+#endif
+
 };
 
 /*
